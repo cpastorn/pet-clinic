@@ -54,35 +54,17 @@ pipeline {
             }            
         }
 
-        stage('Decide Deploy to Test'){
-            when {
-                branch 'master'
-            }
-            agent any
-                steps {
-                    sh "chmod +x deploy.sh"
-                    sh "./deploy.sh test $TAG_NAME"
-                }
-        }
-        
-
-        
-        stage('Deploy Test') {
-            agent any
-            steps {
-                sh "chmod +x deploy.sh"
-                sh "./deploy.sh dev $TAG_NAME"
-            }
-            stage("End to End Tests") {
+stage('Deploy Test'){
     when {
         branch 'master'
     }
     agent any
     steps {
-        sh "chmod +x ui-tests.sh"
-        sh "./ui-tests.sh"
+        sh "chmod +x deploy.sh"
+        sh "./deploy.sh test $TAG_NAME"
     }
 }
+
 
         }
 
