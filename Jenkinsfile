@@ -66,7 +66,17 @@ pipeline {
         }
         
 
-        
+        stage('Deploy Test'){
+    when {
+        branch 'master'
+    }
+    agent any
+    steps {
+        sh "chmod +x deploy.sh"
+        sh "./deploy.sh test $TAG_NAME"
+    }
+}
+
         stage('Deploy Test') {
             agent any
             steps {
